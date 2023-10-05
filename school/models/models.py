@@ -47,3 +47,4 @@ class qualification(models.Model):
     topic = fields.Many2one('school.topic')
     qualification = fields.Float()
     passes = fields.Boolean
+    notPasses = fields.Boolean
