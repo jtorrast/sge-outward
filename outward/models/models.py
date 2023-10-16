@@ -12,14 +12,17 @@ class player(models.Model):
      building = fields.One2Many('outward.player_building', 'player')#model players_building
      level = fields.Integer()
      gold = fields.Integer(compute='_get_resource') #computed recorriendo el building para obtener la produccion de gold
-     wood = fields.Integer()
-     stone = fields.Integer()
-     colonist = fields.Integer()
+     wood = fields.Integer(compute='_get_resource')
+     stone = fields.Integer(compute='_get_resource')
+     colonist = fields.Integer(compute='_get_resource')
 
      @api.depends('building')
      def _get_resouce(self):
          for b in self:
              b.gold = b.building.gold_production
+             b.wood = b.building.wood_production
+             b.stone = b.building.stone_production
+             b.colonist = b.building.colonist_production
 
 
 class skill(models.Model):

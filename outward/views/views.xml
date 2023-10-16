@@ -27,9 +27,19 @@
       <field name="res_model">outward.skill</field>
       <field name="view_mode">tree,form</field>
     </record>
-    <record model="ir.actions.act_window" id="outward.action_skills_levels">
-      <field name="name">Skills levels</field>
+    <record model="ir.actions.act_window" id="outward.action_skills_level">
+      <field name="name">Players Skills</field>
       <field name="res_model">outward.player_skill_level</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="outward.building">
+      <field name="name">Buildings</field>
+      <field name="res_model">outward.building</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="outward.player_building">
+      <field name="name">Buildings</field>
+      <field name="res_model">outward.building</field>
       <field name="view_mode">tree,form</field>
     </record>
 

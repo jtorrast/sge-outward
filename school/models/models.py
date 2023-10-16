@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class student(models.Model):
@@ -56,3 +57,11 @@ class qualification(models.Model):
                 q.passes = True
             else:
                 q.passes = False
+
+    @api.constrains('qualification')
+    def _check_qualification(self):
+        for q in self:
+            if q.qualification > 10:
+                raise ValidationError("Your record is too high: %s" % q.qualification)
+            if q.qualification < 0:
+                raise ValidationError("Your record is too low: %s" % q.qualification)
