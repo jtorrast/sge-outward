@@ -27,47 +27,30 @@
       <field name="res_model">outward.skill</field>
       <field name="view_mode">tree,form</field>
     </record>
-    <record model="ir.actions.act_window" id="outward.action_skills_level">
+    <record model="ir.actions.act_window" id="outward.action_skills_levels">
       <field name="name">Players Skills</field>
       <field name="res_model">outward.player_skill_level</field>
       <field name="view_mode">tree,form</field>
     </record>
-    <record model="ir.actions.act_window" id="outward.building">
+    <record model="ir.actions.act_window" id="outward.action_building">
       <field name="name">Buildings</field>
       <field name="res_model">outward.building</field>
       <field name="view_mode">tree,form</field>
     </record>
-    <record model="ir.actions.act_window" id="outward.player_building">
-      <field name="name">Buildings</field>
-      <field name="res_model">outward.building</field>
+    <record model="ir.actions.act_window" id="outward.action_player_building">
+      <field name="name">Players Buildings</field>
+      <field name="res_model">outward.player_building</field>
       <field name="view_mode">tree,form</field>
     </record>
 
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="outward.action_server">
-      <field name="name">outward server</field>
-      <field name="model_id" ref="model_outward_outward"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
 
     <!-- Top menu item -->
 
-    <menuitem name="outward" id="outward.menu_root"/>
+    <menuitem name="Outward" id="outward.menu_root"/>
 
     <!-- menu categories -->
 
     <menuitem name="Administration" id="outward.menu_administration" parent="outward.menu_root"/>
-    <menuitem name="Menu 2" id="outward.menu_2" parent="outward.menu_root"/>
 
     <!-- actions -->
 
@@ -77,6 +60,10 @@
               action="outward.action_skills"/>
     <menuitem name="Skills levels" id="outward.menu_skill_level" parent="outward.menu_administration"
               action="outward.action_skills_levels"/>
+    <menuitem name="Buildings" id="outward.menu_bulding" parent="outward.menu_administration"
+              action="outward.action_building"/>
+    <menuitem name="Players Buildings" id="outward.menu_player_building" parent="outward.menu_administration"
+              action="outward.action_player_building"/>
 
   </data>
 </odoo>

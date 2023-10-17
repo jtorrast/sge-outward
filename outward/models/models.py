@@ -9,7 +9,7 @@ class player(models.Model):
      _description = 'Player'
 
      name = fields.Char()
-     building = fields.One2Many('outward.player_building', 'player')#model players_building
+     building = fields.One2many('outward.player_building', 'player')#model players_building
      level = fields.Integer()
      gold = fields.Integer(compute='_get_resource') #computed recorriendo el building para obtener la produccion de gold
      wood = fields.Integer(compute='_get_resource')
@@ -17,7 +17,7 @@ class player(models.Model):
      colonist = fields.Integer(compute='_get_resource')
 
      @api.depends('building')
-     def _get_resouce(self):
+     def _get_resource(self):
          for b in self:
              b.gold = b.building.gold_production
              b.wood = b.building.wood_production
@@ -70,12 +70,13 @@ class player_building(models.Model):
     colonist_production = fields.Integer(compute='_get_production')
 
     @api.depends('type', 'building_level')
-    def _get_prodution(self):
+    def _get_production(self):
         for b in self:
-            b.food_production = b.food_production + b.type.food_production * math.log(b.building_level)
-            b.wood_production = b.wood_production + b.type.wood_production * math.log(b.building_level)
-            b.stone_production = b.stone_production + b.type.stone_production * math.log(b.building_level)
-            b.gold_production = b.gold_production + b.type.gold_production * math.log(b.building_level)
-            b.soldier_production = b.soldier_production + b.type.soldier_production * math.log(b.building_level)
-            b.colonist_production = b.colonist_production + b.type.colonist_production * math.log(b.building_level)
+            b.food_production = b.type.food_production + b.type.food_production * math.log(b.building_level)
+            b.wood_production = b.type.wood_production + b.type.wood_production * math.log(b.building_level)
+            b.stone_production = b.type.stone_production + b.type.stone_production * math.log(b.building_level)
+            b.gold_production = b.type.gold_production + b.type.gold_production * math.log(b.building_level)
+            b.soldier_production = b.type.soldier_production + b.type.soldier_production * math.log(b.building_level)
+            b.colonist_production = b.type.colonist_production + b.type.colonist_production * math.log(b.building_level)
+
 
