@@ -1,5 +1,44 @@
 <odoo>
   <data>
+    <record model="ir.ui.view" id="outward.player_form_view">
+      <field name="name">Player Outward form</field>
+      <field name="model">outward.player</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <group>
+                <separator string="Player Info">
+                  <field name="name"/>
+                  <field name="level"/>
+                </separator>
+              </group>
+            </group>
+            <group string="Resources">
+                <field name="gold"/>
+                <field name="wood"/>
+                <field name="food"/>
+                <field name="stone"/>
+                <field name="colonist"/>
+            </group>
+            <notebook>
+                <page string="Player Buildings">
+                    <field name="building">
+                        <tree>
+                            <field name="type"/>
+                            <field name="food_production"/>
+                            <field name="stone_production"/>
+                            <field name="gold_production"/>
+                            <field name="soldier_production"/>
+                            <field name="colonist_production"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
 
+          </sheet>
+        </form>
+      </field>
+    </record>
   </data>
 </odoo>
