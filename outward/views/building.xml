@@ -1,5 +1,51 @@
 <odoo>
   <data>
 
+<!--Vista tree afecta a la vsita general del modelo-->
+    <record model="ir.ui.view" id="outward.building_types_view">
+      <field name="name">Outward building types</field>
+      <field name="model">outward.building</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="type"></field>
+          <field name="food_production"></field>
+          <field name="wood_production"></field>
+          <field name="stone_production"></field>
+          <field name="gold_production"></field>
+          <field name="soldier_production"></field>
+          <field name="colonist_production"></field>
+          <field name="food_cost"></field>
+          <field name="stone_cost"></field>
+          <field name="gold_cost"></field>
+          <field name="construction_time"></field>
+        </tree>
+      </field>
+    </record>
+<!--Vista form afecta a los elementos almacenados en cada modelo-->
+    <record model="ir.ui.view" id="outward.building_types_view_form">
+      <field name="name">Outward building types</field>
+      <field name="model">outward.building</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="type"></field>
+              <field name="food_production"></field>
+              <field name="wood_production"></field>
+              <field name="stone_production"></field>
+              <field name="gold_production"></field>
+              <field name="soldier_production"></field>
+              <field name="colonist_production"></field>
+              <field name="food_cost"></field>
+              <field name="stone_cost"></field>
+              <field name="gold_cost"></field>
+              <field name="construction_time"></field>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
   </data>
 </odoo>
