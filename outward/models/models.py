@@ -55,6 +55,7 @@ class building(models.Model):
     _description = 'Buildings'
 
     type = fields.Char()
+    name = fields.Char(compute='_get_name')
     food_production = fields.Integer()
     wood_production = fields.Integer()
     stone_production = fields.Integer()
@@ -67,6 +68,11 @@ class building(models.Model):
     gold_cost = fields.Integer()
     construction_time = fields.Integer()
     img = fields.Image(max_width=200, max_height=200)
+
+    @api.depends('type')
+    def _get_name(self):
+        for b in self:
+            b.name = b.type
 
 class player_building(models.Model):
     _name = 'outward.player_building'

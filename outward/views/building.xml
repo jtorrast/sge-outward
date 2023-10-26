@@ -30,17 +30,27 @@
           <sheet>
             <group>
               <field name="type"></field>
-              <field name="food_production"></field>
-              <field name="wood_production"></field>
-              <field name="stone_production"></field>
-              <field name="gold_production"></field>
-              <field name="soldier_production"></field>
-              <field name="colonist_production"></field>
-              <field name="food_cost"></field>
-              <field name="stone_cost"></field>
-              <field name="gold_cost"></field>
-              <field name="construction_time"></field>
             </group>
+              <notebook>
+                <page string="Resources Production">
+                  <group>
+                    <field name="food_production"></field>
+                    <field name="wood_production"></field>
+                    <field name="stone_production"></field>
+                    <field name="gold_production"></field>
+                    <field name="soldier_production"></field>
+                    <field name="colonist_production"></field>
+                  </group>
+                </page>
+                <page string="Cost">
+                  <group>
+                    <field name="food_cost"></field>
+                    <field name="stone_cost"></field>
+                    <field name="gold_cost"></field>
+                    <field name="construction_time"></field>
+                  </group>
+                </page>
+              </notebook>
           </sheet>
         </form>
       </field>
