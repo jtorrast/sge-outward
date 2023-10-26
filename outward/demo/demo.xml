@@ -26,5 +26,84 @@
             <field name="value">40</field>
           </record>
 -->
+
+        <record id="outward.player_demo" model="outward.player">
+            <field name="name">Manos Kelly</field>
+        </record>
+        <record id="outward.player_demo_2" model="outward.player">
+             <field name="name">Poison Ivy</field>
+        </record>
+        <record id="outward.player_demo_3" model="outward.player">
+             <field name="name">Luky Luck</field>
+        </record>
+
+        <!--Resources production-->
+        <record id="outward.building_cabin_demo" model="outward.building">
+            <field name="type">Cabin</field>
+            <field name="wood_cost">500</field>
+            <field name="stone_cost">10</field>
+            <field name="construction_time">150</field>
+        </record>
+        <record id="outward.building_sawmill_demo" model="outward.building">
+            <field name="type">Sawmill</field>
+            <field name="wood_production">200</field>
+            <field name="wood_cost">100</field>
+            <field name="construction_time">35</field>
+        </record>
+        <record id="outward.building_mill_demo" model="outward.building">
+            <field name="type">Mill</field>
+            <!--Required for fields-->
+            <field name="wood_cost">100</field>
+            <field name="construction_time">35</field>
+        </record>
+        <record id="outward.building_field_demo" model="outward.building">
+            <field name="type">Field</field>
+            <field name="food_production">200</field>
+            <field name="wood_cost">60</field>
+            <field name="construction_time">35</field>
+        </record>
+        <record id="outward.building_stone_mine_demo" model="outward.building">
+            <field name="type">Stone Mine</field>
+            <field name="stone_production">200</field>
+            <field name="wood_cost">60</field>
+            <field name="construction_time">35</field>
+        </record>
+        <record id="outward.building_gold_mine_demo" model="outward.building">
+            <field name="type">Gold Mine</field>
+            <field name="gold_production">200</field>
+            <field name="wood_cost">100</field>
+            <field name="stone_cost">60</field>
+            <field name="construction_time">35</field>
+        </record>
+        <!--Military Production-->
+        <record id="outward.building_barrack_demo" model="outward.building">
+            <!--Required for guard-->
+            <field name="type">Barrack</field>
+            <field name="wood_cost">100</field>
+            <field name="stone_cost">60</field>
+            <field name="construction_time">35</field>
+        </record>
+        <record id="outward.building_stable_demo" model="outward.building">
+            <!--Required for cowboy-->
+            <field name="type">Stable</field>
+            <field name="wood_cost">200</field>
+            <field name="stone_cost">30</field>
+            <field name="construction_time">50</field>
+        </record>
+        <record id="outward.building_fort_demo" model="outward.building">
+            <!--Required for marshals-->
+            <field name="type">Fort</field>
+            <field name="wood_cost">400</field>
+            <field name="stone_cost">40</field>
+            <field name="construction_time">120</field>
+        </record>
+        <record id="outward.player_building_barrack_demo" model="outward.player_building">
+            <field name="type" ref="outward.building_barrack_demo"></field>
+            <field name="player" ref="outward.player_demo_2"></field>
+        </record>
+        <record id="outward.player_building_stone_mine_demo" model="outward.player_building">
+            <field name="type" ref="outward.building_stone_mine_demo"></field>
+            <field name="player" ref="outward.player_demo_2"></field>
+        </record>
     </data>
 </odoo>

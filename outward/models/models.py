@@ -2,7 +2,7 @@
 import math
 
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+
 
 
 class player(models.Model):
@@ -19,9 +19,15 @@ class player(models.Model):
      colonist = fields.Integer(compute='_get_resource')
 
      @api.depends('building')
+     @api.depends('building')
      def _get_resource(self):
          for player in self:
-             for building in self.building:
+             player.gold = 0
+             player.wood = 0
+             player.stone = 0
+             player.colonist = 0
+             player.food = 0
+             for building in player.building:
                  player.gold += building.gold_production
                  player.wood += building.wood_production
                  player.stone += building.stone_production
@@ -53,16 +59,14 @@ class building(models.Model):
     wood_production = fields.Integer()
     stone_production = fields.Integer()
     gold_production = fields.Integer()
-    soldier_production = fields.Integer()#ver de hacer seccion modelos para militares y desblquean según edificios
+    soldier_production = fields.Integer()
     colonist_production = fields.Integer()
     food_cost = fields.Integer()
     wood_cost = fields.Integer()
     stone_cost = fields.Integer()
     gold_cost = fields.Integer()
-
-
-
-
+    construction_time = fields.Integer()
+    img = fields.Image(max_width=200, max_height=200)
 
 class player_building(models.Model):
     _name = 'outward.player_building'
@@ -89,3 +93,10 @@ class player_building(models.Model):
             b.soldier_production = b.type.soldier_production + b.type.soldier_production * math.log(b.building_level)
             b.colonist_production = b.type.colonist_production + b.type.colonist_production * math.log(b.building_level)
 
+
+#pensar sistemas de defensa
+
+#modelo soldados y soldados_jugador:
+#guard -> barrack. Coste 60 food, 20 gold, 20 seg
+#cowboy-> establo, food 25, gold 45, 25 seg
+#marshals-> fuerte, food 60, gold 75, 30 seg
