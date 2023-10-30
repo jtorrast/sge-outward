@@ -80,6 +80,7 @@ class player_building(models.Model):
 
     type = fields.Many2one('outward.building')
     player = fields.Many2one('outward.player')
+    name = fields.Char(compute='_get_name')
     #campo nombre con constrais para probar que no sea repetido
     building_level = fields.Integer(default=1)
     food_production = fields.Integer(compute='_get_production')
@@ -88,6 +89,11 @@ class player_building(models.Model):
     gold_production = fields.Integer(compute='_get_production')
     soldier_production = fields.Integer(compute='_get_production')
     colonist_production = fields.Integer(compute='_get_production')
+
+    @api.depends('player')
+    def _get_name(self):
+        for b in self:
+            b.name = b.player
 
     @api.depends('type')
     def _get_production(self):

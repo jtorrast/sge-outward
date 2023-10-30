@@ -58,6 +58,19 @@
 
     <!--Añadir vista del modelo player_building-->
 
+    <!--Mejorar la vista con el group by segun el player -->
+
+      <record model="ir.ui.view" id="outward.building_player_view">
+        <field name="name">Outward building players</field>
+        <field name="model">outward.player_building</field>
+        <field name="arch" type="xml">
+          <tree>
+            <field name="player"></field>
+            <field name="type"></field>
+            <field name="building_level"></field>
+          </tree>
+      </field>
+    </record>
 
   </data>
 </odoo>
