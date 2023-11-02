@@ -20,6 +20,7 @@
                 <field name="food"/>
                 <field name="stone"/>
                 <field name="colonist"/>
+                <button name="generate_colonist" type="object" string="Hire colonist" class="oe_highlight"/>
             </group>
             <notebook>
                 <page string="Player Buildings">

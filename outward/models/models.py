@@ -16,22 +16,37 @@ class player(models.Model):
      wood = fields.Integer(compute='_get_resource')
      food = fields.Integer(compute='_get_resource')
      stone = fields.Integer(compute='_get_resource')
-     colonist = fields.Integer(compute='_get_resource')
+     colonist = fields.Integer()
 
-     @api.depends('building')
+     def generate_colonist(self):
+         #para comprobar edificio recorrer con un for los edificios y camviar una variable bool a true si lo encuentra
+
+         for p in self:
+             for building in p.building:
+                 have_barrack = False
+                 print(building.name)
+                 if building.name == 'Barrack':
+                     have_barrack = True
+                     print("Tienes BARRACK")
+                     break
+
+             if p.food >= 50 and have_barrack:
+                 p.colonist = p.colonist + 1
+                 print("Colonist +1", p.colonist)
+
+
+
      @api.depends('building')
      def _get_resource(self):
          for player in self:
              player.gold = 0
              player.wood = 0
              player.stone = 0
-             player.colonist = 0
              player.food = 0
              for building in player.building:
                  player.gold += building.gold_production
                  player.wood += building.wood_production
                  player.stone += building.stone_production
-                 player.colonist += building.colonist_production
                  player.food += building.food_production
 
 
