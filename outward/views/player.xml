@@ -40,5 +40,43 @@
         </form>
       </field>
     </record>
+    <record model="ir.ui.view" id="outward.player_kanban_view">
+        <field name="name">Outward players kanban views</field>
+      <field name="model">outward.player</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <field name="name"/>
+          <field name="level"/>
+          <field name="gold"/>
+          <field name="wood"/>
+          <field name="food"/>
+          <field name="stone"/>
+          <field name="colonist"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div  t-attf-class="oe_kanban_color_{{kanban_getcolor(record.level.raw_value)}}">
+                <div t-attf-class="oe_kanban_content">
+                  <h4>
+                    <a type="edit">
+                      <field name="name"></field>
+                    </a>
+                  </h4>
+                  <ul>
+                    <li>Level: <field name="level"></field></li>
+                    <li>Gold: <field name="gold"></field></li>
+                    <li>Wood: <field name="wood"></field></li>
+                    <li>Food: <field name="food"></field></li>
+                    <li>Stone: <field name="stone"></field></li>
+                    <li>Colonist: <field name="colonist"></field></li>
+                  </ul>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+
+
+    </record>
   </data>
 </odoo>

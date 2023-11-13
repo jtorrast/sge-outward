@@ -20,7 +20,7 @@
     <record model="ir.actions.act_window" id="outward.action_players">
       <field name="name">Players</field>
       <field name="res_model">outward.player</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
     <record model="ir.actions.act_window" id="outward.action_skills">
       <field name="name">Skills</field>
@@ -40,7 +40,7 @@
     <record model="ir.actions.act_window" id="outward.action_player_building">
       <field name="name">Players Buildings</field>
       <field name="res_model">outward.player_building</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
 

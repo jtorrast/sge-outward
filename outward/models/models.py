@@ -2,6 +2,7 @@
 import math
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 
@@ -29,10 +30,16 @@ class player(models.Model):
                      have_barrack = True
                      print("Tienes BARRACK")
                      break
+             if not have_barrack:
+                 raise ValidationError("You need some Barracks")
 
              if p.food >= 50 and have_barrack:
                  p.colonist = p.colonist + 1
                  print("Colonist +1", p.colonist)
+             else:
+                 raise ValidationError("You don't have enough food")
+
+
 
 
 
@@ -108,7 +115,7 @@ class player_building(models.Model):
     @api.depends('player')
     def _get_name(self):
         for b in self:
-            b.name = b.player
+            b.name = b.type.name + " de " + b.player.name + ". ID: " + str(b.id)
 
     @api.depends('type')
     def _get_production(self):

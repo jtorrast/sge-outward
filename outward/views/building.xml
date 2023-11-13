@@ -57,8 +57,44 @@
     </record>
 
     <!--Añadir vista del modelo player_building-->
+       <record model="ir.ui.view" id="outward.player_building_kanban_view">
+      <field name="name">Outward players buildings kanban view</field>
+      <field name="model">outward.player_building</field>
+      <field name="arch" type="xml">
+        <kanban default_group_by="player">
+          <field name="type"/>
+          <field name="player"/>
+          <field name="building_level"/>
+          <field name="food_production"/>
+          <field name="wood_production"/>
+          <field name="stone_production"/>
+          <field name="gold_production"/>
+          <field name="colonist_production"/>
+              <templates>
+            <t t-name="kanban-box">
+                <div class="oe_kanban_content">
+                  <h4>
+                    <a type="edit">
+                      <field name="name"></field>
+                    </a>
+                  </h4>
+                  <ul>
+                    <!---->
+                    <li>Level:<field name="building_level"/></li>
+                    <li attrs="{'invisible': [('food_production', '==', 0)]}">Food production: <field name="food_production"/></li>
+                    <li attrs="{'invisible': [('wood_production', '==', 0)]}">Wood production: <field name="wood_production"/></li>
+                    <li attrs="{'invisible': [('stone_production', '==', 0)]}">Stone production: <field name="stone_production"/></li>
+                    <li attrs="{'invisible': [('gold_production', '==', 0)]}">Gold production: <field name="gold_production"/></li>
+                    <li attrs="{'invisible': [('colonist_production', '==', 0)]}">Colonist production: <field name="colonist_production"/></li>
+                  </ul>
+                </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
 
-    <!--Mejorar la vista con el group by segun el player -->
+    <!--Añadir un kanban en building con imagen de cada build tipo roma citicen-->
 
       <record model="ir.ui.view" id="outward.building_player_search">
         <field name="name">Outward building players</field>
