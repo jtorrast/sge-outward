@@ -69,7 +69,7 @@
       </field>
     </record>
 
-
+  <!--ESTE-->
     <record model="ir.ui.view" id="roma.cities_kanban_view">
       <field name="name">Roma cities kanban</field>
       <field name="model">roma.city</field>

@@ -30,6 +30,7 @@
           <sheet>
             <group>
               <field name="type"></field>
+              <field name="img" widget="image" class="oe_avatar"/>
             </group>
               <notebook>
                 <page string="Resources Production">
@@ -47,6 +48,7 @@
                     <field name="food_cost"></field>
                     <field name="stone_cost"></field>
                     <field name="gold_cost"></field>
+                    <field name="wood_cost"></field>
                     <field name="construction_time"></field>
                   </group>
                 </page>

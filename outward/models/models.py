@@ -13,10 +13,10 @@ class player(models.Model):
      name = fields.Char()
      building = fields.One2many('outward.player_building', 'player')#model players_building
      level = fields.Integer()
-     gold = fields.Integer(compute='_get_resource') #computed recorriendo el building para obtener la produccion de gold
-     wood = fields.Integer(compute='_get_resource')
-     food = fields.Integer(compute='_get_resource')
-     stone = fields.Integer(compute='_get_resource')
+     gold = fields.Integer() #computed recorriendo el building para obtener la produccion de gold
+     wood = fields.Integer()
+     food = fields.Integer()
+     stone = fields.Integer()
      colonist = fields.Integer()
 
      def generate_colonist(self):
@@ -39,10 +39,6 @@ class player(models.Model):
              else:
                  raise ValidationError("You don't have enough food")
 
-
-
-
-
      @api.depends('building')
      def _get_resource(self):
          for player in self:
@@ -55,6 +51,22 @@ class player(models.Model):
                  player.wood += building.wood_production
                  player.stone += building.stone_production
                  player.food += building.food_production
+
+     def update_resources(self):
+         for player in self.search([]):
+             gold = player.gold
+             wood = player.wood
+             stone = player.stone
+             food = player.food
+             for building in player.building:
+                 gold += building.gold_production
+                 wood += building.wood_production
+                 stone += building.stone_production
+                 food += building.food_production
+             player.gold = gold
+             player.wood = wood
+             player.stone = stone
+             player.food = food
 
 
 class skill(models.Model):
@@ -78,6 +90,7 @@ class building(models.Model):
 
     type = fields.Char()
     name = fields.Char(compute='_get_name')
+    estate = fields.Selection([('Construcción'),('Operativo')('Mejora')], requiered=True, default='Construcción')
     food_production = fields.Integer()
     wood_production = fields.Integer()
     stone_production = fields.Integer()
@@ -95,6 +108,12 @@ class building(models.Model):
     def _get_name(self):
         for b in self:
             b.name = b.type
+
+    def cron_building_construcion(self):
+        for b in self([]):
+            #el cron se actualiza cada minuto pero tenemos que ir acumuldo los minutos en una variable para que los
+            #los sume cada minuto y cuando esa variable sea = construction:time cambia de estado operativo y ya puede producir
+            #Si cambiamos a estado mejora sube de nivel si tenemos los recursos necesarios para la subida
 
 class player_building(models.Model):
     _name = 'outward.player_building'
@@ -115,7 +134,7 @@ class player_building(models.Model):
     @api.depends('player')
     def _get_name(self):
         for b in self:
-            b.name = b.type.name + " de " + b.player.name + ". ID: " + str(b.id)
+            b.name = str(b.type.name) + " de " + str(b.player.name) + ". ID: " + str(b.id)
 
     @api.depends('type')
     def _get_production(self):
