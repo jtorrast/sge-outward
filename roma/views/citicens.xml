@@ -27,9 +27,9 @@
               <templates>
             <t t-name="kanban-box">
               <div  t-attf-class=" oe_kanban_card o_kanban_record_has_image_fill oe_kanban_color_{{kanban_getcolor(record.hierarchy.raw_value)}}">
-                      <div class="o_kanban_image_fill_left o_kanban_image_full d-none d-md-block "
+                  <div class="o_kanban_image_fill_left o_kanban_image_full d-none d-md-block "
                                      t-attf-style="background-image:url('#{kanban_image('roma.citicen', 'avatar', record.id.value, placeholder)}')">
-                                </div>
+                    </div>
                 <div class="oe_kanban_details d-flex flex-column">
 
                   <h4>

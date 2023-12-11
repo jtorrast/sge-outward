@@ -98,7 +98,43 @@
 
     <!--Añadir un kanban en building con imagen de cada build tipo roma citicen-->
 
-      <record model="ir.ui.view" id="outward.building_player_search">
+    <record model="ir.ui.view" id="outward.building_types_kanban_view">
+      <field name="name">Outward building kanban</field>
+      <field name="model">outward.building</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <field name="id"/>
+          <field name="type"/>
+          <field name="name"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class=" oe_kanban_card o_kanban_record_has_image_fill oe_kanban_color_{{kanban_getcolor(record.construction_time.raw_value)}}">
+                <div class="o_kanban_image_fill_left o_kanban_image_full d-none d-md-block "
+                                     t-attf-style="background-image:url('#{kanban_image('outward.building', 'img', record.id.value, placeholder)}')">
+                </div>
+                 <div class="oe_kanban_details d-flex flex-column">
+                    <h4>
+                      <a type="edit">
+                        <field name="name"></field>
+                      </a>
+                    </h4>
+                    <ul>
+                      <li>Type: <field name="type"></field></li>
+                      <li>Construction time: <field name="construction_time"></field></li>
+                    </ul>
+                </div>
+              </div>
+            </t>
+          </templates>
+
+
+        </kanban>
+      </field>
+
+
+    </record>
+
+    <record model="ir.ui.view" id="outward.building_player_search">
         <field name="name">Outward building players</field>
         <field name="model">outward.player_building</field>
         <field name="arch" type="xml">
@@ -111,7 +147,7 @@
       </field>
     </record>
 
-          <record model="ir.ui.view" id="outward.building_player_tree">
+    <record model="ir.ui.view" id="outward.building_player_tree">
         <field name="name">Outward building players</field>
         <field name="model">outward.player_building</field>
         <field name="arch" type="xml">

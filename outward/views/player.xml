@@ -10,7 +10,6 @@
               <group>
                 <separator string="Player Info">
                   <field name="name"/>
-                  <field name="level"/>
                 </separator>
               </group>
             </group>
@@ -32,6 +31,16 @@
                             <field name="gold_production"/>
                             <field name="soldier_production"/>
                             <field name="colonist_production"/>
+                        </tree>
+                    </field>
+                    <separator string="Available Buildings"></separator>
+                    <field name="available_buildings">
+                        <tree>
+                            <field name="type"/>
+                            <field name="wood_cost"/>
+                            <field name="stone_cost"/>
+                            <field name="gold_cost"/>
+                            <button name="build_building" type="object" string="Build" class="oe_highlight"/>
                         </tree>
                     </field>
                 </page>

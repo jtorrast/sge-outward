@@ -18,6 +18,13 @@ class player(models.Model):
      food = fields.Integer()
      stone = fields.Integer()
      colonist = fields.Integer()
+     available_buildings = fields.Many2many('outward.building', compute='_get_available_buildings')
+
+     def _get_available_buildings(self):
+         for c in self:
+             print(c)
+             c.available_buildings = self.env['outward.building'].search([]).filtered(lambda b: b.wood_cost <= c.wood and
+                                                                                                b.stone_cost <= c.stone).ids
 
      def generate_colonist(self):
          #para comprobar edificio recorrer con un for los edificios y camviar una variable bool a true si lo encuentra
@@ -90,7 +97,7 @@ class building(models.Model):
 
     type = fields.Char()
     name = fields.Char(compute='_get_name')
-    estate = fields.Selection([('Construcción'),('Operativo')('Mejora')], requiered=True, default='Construcción')
+    #comprobar si el selection se muestra en la vista
     food_production = fields.Integer()
     wood_production = fields.Integer()
     stone_production = fields.Integer()
@@ -109,11 +116,10 @@ class building(models.Model):
         for b in self:
             b.name = b.type
 
-    def cron_building_construcion(self):
-        for b in self([]):
-            #el cron se actualiza cada minuto pero tenemos que ir acumuldo los minutos en una variable para que los
-            #los sume cada minuto y cuando esa variable sea = construction:time cambia de estado operativo y ya puede producir
-            #Si cambiamos a estado mejora sube de nivel si tenemos los recursos necesarios para la subida
+    def build_building(self):
+        print(self)
+
+
 
 class player_building(models.Model):
     _name = 'outward.player_building'
@@ -122,6 +128,8 @@ class player_building(models.Model):
     type = fields.Many2one('outward.building')
     player = fields.Many2one('outward.player')
     name = fields.Char(compute='_get_name')
+    estate = fields.Selection([('Construcción', 'Construcción'), ('Operativo', 'Operativo'), ('Mejora', 'Mejora')],
+                              required=True, default='Construcción')
     #campo nombre con constrais para probar que no sea repetido
     building_level = fields.Integer(default=1)
     food_production = fields.Integer(compute='_get_production')
@@ -145,6 +153,12 @@ class player_building(models.Model):
             b.gold_production = b.type.gold_production + b.type.gold_production * math.log(b.building_level)
             b.soldier_production = b.type.soldier_production + b.type.soldier_production * math.log(b.building_level)
             b.colonist_production = b.type.colonist_production + b.type.colonist_production * math.log(b.building_level)
+
+    # def cron_building_construcion(self):
+    #   for b in self([]):
+    # el cron se actualiza cada minuto pero tenemos que ir acumuldo los minutos en una variable para que los
+    # los sume cada minuto y cuando esa variable sea = construction:time cambia de estado operativo y ya puede producir
+    # Si cambiamos a estado mejora sube de nivel si tenemos los recursos necesarios para la subida
 
 
 #pensar sistemas de defensa
