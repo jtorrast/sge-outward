@@ -29,8 +29,7 @@
                             <field name="food_production"/>
                             <field name="stone_production"/>
                             <field name="gold_production"/>
-                            <field name="soldier_production"/>
-                            <field name="colonist_production"/>
+                            <field name="wood_production"/>
                         </tree>
                     </field>
                     <separator string="Available Buildings"></separator>
