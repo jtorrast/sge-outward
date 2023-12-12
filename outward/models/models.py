@@ -117,7 +117,17 @@ class building(models.Model):
             b.name = b.type
 
     def build_building(self):
-        print(self)
+        for b in self:
+            player_id = self._context.get('player_id')
+            building = self.env['outward.player_building'].create({
+                "type": b.id,
+                "player": player_id
+            })
+            building_type = b.type
+            if building_type.stone_cost > 0:
+                building.player.stone -= building.stone_cost
+                pass
+            building.player.wood -= building.wood_cost
 
 
 
