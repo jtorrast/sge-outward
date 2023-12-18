@@ -19,6 +19,8 @@
                 <field name="food"/>
                 <field name="stone"/>
                 <field name="colonist"/>
+                <field name="attack"/>
+                <field name="defence"/>
                 <button name="generate_colonist" type="object" string="Hire colonist" class="oe_highlight"/>
             </group>
             <notebook>
@@ -42,6 +44,25 @@
                             <button name="build_building" type="object" string="Build" class="oe_highlight"/>
                         </tree>
                     </field>
+                </page>
+                <page string="Player Militia">
+                    <separator string="Militia"></separator>
+                        <field name="militia">
+                            <tree>
+                                <field name="type"/>
+                                <field name="attack"/>
+                                <field name="defence"/>
+                                <field name="hire_percent" widget="progressbar" attrs="{'invisible': [('hire_percent', '==', 100)] }" />
+                            </tree>
+                        </field>
+                        <separator string="Available Militia"></separator>
+                        <field name="available_militia">
+                            <tree>
+                                <field name="name"/>
+                                <field name="gold_cost"/>
+                                <button name="hire" type="object" string="Hire" class="oe_highlight" context="{'player_id':parent.id}"/>
+                            </tree>
+                        </field>
                 </page>
             </notebook>
           </sheet>
@@ -83,8 +104,6 @@
           </templates>
         </kanban>
       </field>
-
-
     </record>
   </data>
 </odoo>

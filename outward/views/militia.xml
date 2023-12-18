@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="outward.militia_types_list_view">
+            <field name="name">Militia Types</field>
+            <field name="model">outward.militia_type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="attack"/>
+                    <field name="defence"/>
+                    <field name="gold_cost"/>
+                </tree>
+            </field>
+        </record>
+         <record model="ir.ui.view" id="outward.militia_player_list_view">
+            <field name="name">Militia Types</field>
+            <field name="model">outward.player_militia</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="attack"/>
+                    <field name="defence"/>
+                    <field name="gold_cost"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

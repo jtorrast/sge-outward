@@ -42,6 +42,16 @@
       <field name="res_model">outward.player_building</field>
       <field name="view_mode">tree,form,kanban</field>
     </record>
+    <record model="ir.actions.act_window" id="outward.action_militia_type">
+      <field name="name">Militia Types</field>
+      <field name="res_model">outward.militia_type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="outward.action_player_militia">
+      <field name="name">Players Militia</field>
+      <field name="res_model">outward.player_militia</field>
+      <field name="view_mode">tree,form</field>
+    </record>
 
 
     <!-- Top menu item -->
@@ -64,6 +74,9 @@
               action="outward.action_building"/>
     <menuitem name="Players Buildings" id="outward.menu_player_building" parent="outward.menu_administration"
               action="outward.action_player_building"/>
-
+    <menuitem name="Militia Types" id="outward.menu_militia_type" parent="outward.menu_administration"
+              action="outward.action_militia_type"/>
+    <menuitem name="Players Militia" id="outward.menu_player_militia" parent="outward.menu_administration"
+              action="outward.action_player_militia"/>
   </data>
 </odoo>
