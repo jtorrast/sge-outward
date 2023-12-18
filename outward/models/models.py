@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
-import math
+
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+import math
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
 
 # ctrl + alt + L -> dar formato al código
@@ -24,6 +27,7 @@ class player(models.Model):
     available_buildings = fields.Many2many('outward.building', compute='_get_available_buildings')
     militia = fields.One2many('outward.player_militia', 'player')
     available_militia = fields.Many2many('outward.militia_type', compute='_get_available_militia')
+    battles = fields.Many2many('outward.battle')
 
     @api.depends('militia.attack', 'militia.defence', 'militia.level')
     def _get_militia_stats(self):
@@ -253,6 +257,29 @@ class player_militia(models.Model):
                 b.hire_percent = 100
                 b.level += 1
             print(b.name,b.hire_percent)
+
+
+class battle(models.Model):
+    _name = 'outward.battle'
+    _description = 'Battles'
+
+    name = fields.Char()
+    start = fields.Datetime(default = lambda self: fields.Datetime.now())
+    end = fields.Datetime(compute = '_get_data_end')
+    total_time = fields.Integer(compute = '_get_date_end')
+    remaining_time = fields.Char(compute = '_get_date_end')
+    progress = fields.Float(compute='_get_date_end')
+    player1 = fields.Many2one('outward.player', domain="[('id','!=',player2)]")
+    player2 = fields.Many2one('outward.player', domain="[('id','!=',player1)]")
+
+
+    @api.constrains('city1','city2')
+    def _check_cities(self):
+        for b in self:
+            if b.city1.id == b.city2.id:
+                raise ValidationError("One city can attack itself")
+
+
 
 # pensar sistemas de defensa
 
