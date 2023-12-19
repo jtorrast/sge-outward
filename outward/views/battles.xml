@@ -14,7 +14,7 @@
                     <field name="player2"/>
                     <field name="winner"/>
                     <field name="finished"/>
-                    <button name="finish_battle" type="object" string="Finish Battle" class="oe_highlight"/>
+                    <button name="finish_battle" type="object" string="Finish Battle" class="oe_highlight" attrs="{'invisible': [('finished', '==', True)]}"/>
                 </tree>
             </field>
         </record>

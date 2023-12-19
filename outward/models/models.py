@@ -324,7 +324,7 @@ class battle(models.Model):
         for b in self:
             if not b.finished:
                 b.calculate_battle(b.player1, b.player2)
-                b.progress = 100
+                b.progress = 100.00
                 b.finished = True
 
 
