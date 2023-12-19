@@ -300,7 +300,7 @@ class battle(models.Model):
 
     def fight_time(self):
         for b in self.search([]):
-            if not b.finished and b.progress == 100:
+            if not b.finished and b.progress >= 100:
                 b.calculate_battle(b.player1, b.player2)
                 b.finished = True
 
