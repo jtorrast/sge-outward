@@ -17,7 +17,7 @@ class player(models.Model):
     name = fields.Char()
     building = fields.One2many('outward.player_building', 'player')  # model players_building
     level = fields.Integer()
-    gold = fields.Integer()  # computed recorriendo el building para obtener la produccion de gold
+    gold = fields.Integer()
     wood = fields.Integer()
     food = fields.Integer()
     stone = fields.Integer()
@@ -46,23 +46,9 @@ class player(models.Model):
         for b in self:
             b.available_militia = self.env['outward.militia_type'].search([]).filtered(lambda c: c.gold_cost <= b.gold).ids
 
-
-
     def generate_colonist(self):
-        # para comprobar edificio recorrer con un for los edificios y camviar una variable bool a true si lo encuentra
-
         for p in self:
-            for building in p.building:
-                have_barrack = False
-                print(building.name)
-                if building.name == 'Barrack':
-                    have_barrack = True
-                    print("Tienes BARRACK")
-                    break
-            if not have_barrack:
-                raise ValidationError("You need some Barracks")
-
-            if p.food >= 50 and have_barrack:
+            if p.food >= 50:
                 p.colonist = p.colonist + 1
                 print("Colonist +1", p.colonist)
             else:
@@ -121,7 +107,6 @@ class building(models.Model):
 
     type = fields.Char()
     name = fields.Char(compute='_get_name')
-    # comprobar si el selection se muestra en la vista
     food_production = fields.Integer()
     wood_production = fields.Integer()
     stone_production = fields.Integer()
@@ -326,13 +311,3 @@ class battle(models.Model):
                 b.calculate_battle(b.player1, b.player2)
                 b.progress = 100.00
                 b.finished = True
-
-
-
-
-# pensar sistemas de defensa
-
-# modelo soldados y soldados_jugador:
-# guard -> barrack. Coste 60 food, 20 gold, 20 seg
-# cowboy-> establo, food 25, gold 45, 25 seg
-# marshals-> fuerte, food 60, gold 75, 30 seg

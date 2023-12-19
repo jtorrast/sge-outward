@@ -41,7 +41,6 @@
                             <field name="wood_cost"/>
                             <field name="stone_cost"/>
                             <field name="gold_cost"/>
-                            <button name="build_building" type="object" string="Build" class="oe_highlight"/>
                         </tree>
                     </field>
                 </page>
