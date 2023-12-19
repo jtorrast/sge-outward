@@ -52,6 +52,11 @@
       <field name="res_model">outward.player_militia</field>
       <field name="view_mode">tree,form</field>
     </record>
+     <record model="ir.actions.act_window" id="outward.action_battles">
+      <field name="name">Outward Battles</field>
+      <field name="res_model">outward.battle</field>
+      <field name="view_mode">tree,form</field>
+    </record>
 
 
     <!-- Top menu item -->
@@ -78,5 +83,7 @@
               action="outward.action_militia_type"/>
     <menuitem name="Players Militia" id="outward.menu_player_militia" parent="outward.menu_administration"
               action="outward.action_player_militia"/>
+    <menuitem name="Battles" id="outward.menu_battles" parent="outward.menu_administration"
+              action="outward.action_battles"/>
   </data>
 </odoo>

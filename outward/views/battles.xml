@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="outward.view_list_battles">
+            <field name="name">Battles List</field>
+            <field name="model">outward.battle</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="start"/>
+                    <field name="end"/>
+                    <field name="remaining_time"/>
+                    <field name="progress" widget="progressbar"/>
+                    <field name="player1"/>
+                    <field name="player2"/>
+                    <field name="winner"/>
+                    <field name="finished"/>
+                    <button name="finish_battle" type="object" string="Finish Battle" class="oe_highlight"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

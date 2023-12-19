@@ -314,8 +314,8 @@ class battle(models.Model):
             date_start = fields.Datetime.from_string(b.start)
             date_end = date_start + timedelta(hours = 2)
             b.end = fields.Datetime.to_string(date_end)
-            b.total_time = (date_end - date_start).total_seconds()/60
-            remaining = relativedelta(date_end,datetime.now())
+            date_start = fields.Datetime.from_string(b.start)
+            date_end = date_start + timedelta(hours=2)
             b.remaining_time = str(remaining.hours)+":"+str(remaining.minutes)+":"+str(remaining.seconds)
             passed_time = (datetime.now()-date_start).total_seconds()
             b.progress = (passed_time*100)/(b.total_time*60)

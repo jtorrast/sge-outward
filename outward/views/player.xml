@@ -20,7 +20,7 @@
                 <field name="stone"/>
                 <field name="colonist"/>
                 <field name="attack"/>
-                <field name="defence"/>
+                <field name="defense"/>
                 <button name="generate_colonist" type="object" string="Hire colonist" class="oe_highlight"/>
             </group>
             <notebook>
@@ -51,7 +51,7 @@
                             <tree>
                                 <field name="type"/>
                                 <field name="attack"/>
-                                <field name="defence"/>
+                                <field name="defense"/>
                                 <field name="hire_percent" widget="progressbar" attrs="{'invisible': [('hire_percent', '==', 100)] }" />
                             </tree>
                         </field>

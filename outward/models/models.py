@@ -23,18 +23,18 @@ class player(models.Model):
     stone = fields.Integer()
     colonist = fields.Integer()
     attack = fields.Integer(compute='_get_militia_stats', store=True)
-    defence = fields.Integer(compute='_get_militia_stats', store=True)
+    defense = fields.Integer(compute='_get_militia_stats', store=True)
     available_buildings = fields.Many2many('outward.building', compute='_get_available_buildings')
     militia = fields.One2many('outward.player_militia', 'player')
     available_militia = fields.Many2many('outward.militia_type', compute='_get_available_militia')
     battles = fields.Many2many('outward.battle')
 
-    @api.depends('militia.attack', 'militia.defence', 'militia.level')
+    @api.depends('militia.attack', 'militia.defense', 'militia.level')
     def _get_militia_stats(self):
         for player in self:
             active_militia = player.militia.filtered(lambda m: m.level > 0)
             player.attack = sum(active_militia.mapped('attack'))
-            player.defence = sum(active_militia.mapped('defence'))
+            player.defense = sum(active_militia.mapped('defense'))
 
     def _get_available_buildings(self):
         for c in self:
@@ -201,7 +201,7 @@ class militia_type(models.Model):
 
     name = fields.Char()
     attack = fields.Float()
-    defence = fields.Float()
+    defense = fields.Float()
     gold_cost = fields.Float()
 
     def hire(self):
@@ -224,7 +224,7 @@ class player_militia(models.Model):
     level = fields.Integer(default=0)
     hire_percent = fields.Float(default=0)
     attack = fields.Float(compute='_get_stats')
-    defence = fields.Float(compute='_get_stats')
+    defense = fields.Float(compute='_get_stats')
     gold_cost = fields.Float(compute='_get_stats')
     is_active = fields.Boolean(compute='_get_is_active')
 
@@ -234,7 +234,7 @@ class player_militia(models.Model):
             b.is_active = True
             if b.attack < 0 and b.player.attack <= abs(b.attack):
                 b.is_active = False
-            if b.defence < 0 and b.player.defence <= abs(b.defence):
+            if b.defense < 0 and b.player.defense <= abs(b.defense):
                 b.is_active = False
     @api.depends('type', 'player')
     def get_name_militia(self):
@@ -247,7 +247,7 @@ class player_militia(models.Model):
     def _get_stats(self):
         for b in self:
             b.attack = b.type.attack + b.type.attack * math.log(b.level + 1)
-            b.defence = b.type.defence + b.type.defence * math.log(b.level + 1)
+            b.defense = b.type.defense + b.type.defense * math.log(b.level + 1)
             b.gold_cost = b.type.gold_cost * b.level
 
     def hire_level(self):
@@ -265,19 +265,68 @@ class battle(models.Model):
 
     name = fields.Char()
     start = fields.Datetime(default = lambda self: fields.Datetime.now())
-    end = fields.Datetime(compute = '_get_data_end')
-    total_time = fields.Integer(compute = '_get_date_end')
+    end = fields.Datetime(compute='_get_date_end')
     remaining_time = fields.Char(compute = '_get_date_end')
     progress = fields.Float(compute='_get_date_end')
     player1 = fields.Many2one('outward.player', domain="[('id','!=',player2)]")
     player2 = fields.Many2one('outward.player', domain="[('id','!=',player1)]")
+    winner = fields.Many2one('outward.player',string="Winner", readonly=True)
+    finished = fields.Boolean(default=False, readonly=True)
 
 
-    @api.constrains('city1','city2')
+    @api.constrains('player1','player2')
     def _check_cities(self):
         for b in self:
-            if b.city1.id == b.city2.id:
+            if b.player1.id == b.player2.id:
                 raise ValidationError("One city can attack itself")
+
+    @api.depends('start')
+    def _get_date_end(self):
+        for b in self:
+            date_start = fields.Datetime.from_string(b.start)
+            date_end = date_start + timedelta(hours=2)
+            remaining = date_end - datetime.now()
+            time_past = (datetime.now() - date_start).total_seconds()/60
+            b.end = fields.Datetime.to_string(date_end)
+            b.remaining_time = "{:02}:{:02}:{:02}".format(remaining.seconds // 3600, (remaining.seconds // 60) % 60,
+                                                          remaining.seconds % 60)
+            b.progress = (time_past * 100) / (2*60)
+
+    def calculate_battle(self, player1, player2):
+        winner = None
+        loser = None
+
+        if player1.attack > player2.defense:
+            winner = player1
+            loser = player2
+        elif player2.attack > player1.defense:
+            winner = player2
+            loser = player1
+
+        if winner and loser:
+            winner_gold_increase = winner.gold * 0.2
+            loser_gold_decrease = loser.gold * 0.1
+
+            winner.write({'gold': winner.gold + winner_gold_increase})
+            loser.write({'gold': loser.gold - loser_gold_decrease})
+
+            self.winner = winner
+
+
+    def fight_time(self):
+        for b in self.search([]):
+            if not b.finished and b.progress == 100:
+                b.calculate_battle(b.player1, b.player2)
+                b.finished = True
+
+
+    def finish_battle(self):
+        for b in self:
+            if not b.finished:
+                b.calculate_battle(b.player1, b.player2)
+                b.progress = 100
+                b.finished = True
+
 
 
 

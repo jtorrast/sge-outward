@@ -25,7 +25,7 @@
     # always loaded
     'data': [
          'security/ir.model.access.csv',
-        'views/building.xml', 'views/player.xml', 'views/militia.xml',
+        'views/building.xml', 'views/player.xml', 'views/militia.xml', 'views/battles.xml',
         'views/views.xml',
         'views/templates.xml',
         'crons/cron_outward.xml'
