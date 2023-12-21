@@ -19,7 +19,7 @@
 
     <record model="ir.actions.act_window" id="outward.action_players">
       <field name="name">Players</field>
-      <field name="res_model">outward.player</field>
+      <field name="res_model">res.partner</field>
       <field name="view_mode">tree,form,kanban</field>
     </record>
     <record model="ir.actions.act_window" id="outward.action_building">

@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_outward_player,outward.player,model_outward_player,base.group_user,1,1,1,1
+
 access_outward_building,outward.building,model_outward_building,base.group_user,1,1,1,1
 access_outward_player_building,outward.player_building,model_outward_player_building,base.group_user,1,1,1,1
 access_outward_militia_type,outward.militia_type,model_outward_militia_type,base.group_user,1,1,1,1

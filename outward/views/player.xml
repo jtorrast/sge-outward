@@ -2,7 +2,7 @@
   <data>
     <record model="ir.ui.view" id="outward.player_form_view">
       <field name="name">Player Outward form</field>
-      <field name="model">outward.player</field>
+      <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <form>
           <sheet>
@@ -70,7 +70,7 @@
     </record>
     <record model="ir.ui.view" id="outward.player_kanban_view">
         <field name="name">Outward players kanban views</field>
-      <field name="model">outward.player</field>
+      <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <kanban>
           <field name="name"/>

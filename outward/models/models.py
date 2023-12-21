@@ -5,16 +5,15 @@ from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 import math
 from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
-
 
 # ctrl + alt + L -> dar formato al código
 
 class player(models.Model):
-    _name = 'outward.player'
-    _description = 'Player'
+    _name = 'res.partner'
+    _inherit = 'res.partner'
+    #_description = 'Player'
 
-    name = fields.Char()
+    #name = fields.Char()
     building = fields.One2many('outward.player_building', 'player')  # model players_building
     level = fields.Integer()
     gold = fields.Integer()
@@ -96,7 +95,7 @@ class player_skill_level(models.Model):
     _name = 'outward.player_skill_level'
     _description = 'Player Skills'
 
-    player_id = fields.Many2one('outward.player')
+    player_id = fields.Many2one('res.partner')
     skill_id = fields.Many2one('outward.skill')
     skill_level = fields.Integer()
 
@@ -144,7 +143,7 @@ class player_building(models.Model):
     _description = 'Player Buildings'
 
     type = fields.Many2one('outward.building')
-    player = fields.Many2one('outward.player')
+    player = fields.Many2one('res.partner')
     name = fields.Char(compute='_get_name')
     estate = fields.Selection([('Construcción', 'Construcción'), ('Operativo', 'Operativo'), ('Mejora', 'Mejora')],
                               required=True, default='Construcción')
@@ -205,7 +204,7 @@ class player_militia(models.Model):
 
     name = fields.Char(compute='get_name_militia')
     type = fields.Many2one('outward.militia_type')
-    player = fields.Many2one('outward.player')
+    player = fields.Many2one('res.partner')
     level = fields.Integer(default=0)
     hire_percent = fields.Float(default=0)
     attack = fields.Float(compute='_get_stats')
@@ -253,9 +252,9 @@ class battle(models.Model):
     end = fields.Datetime(compute='_get_date_end')
     remaining_time = fields.Char(compute = '_get_date_end')
     progress = fields.Float(compute='_get_date_end')
-    player1 = fields.Many2one('outward.player', domain="[('id','!=',player2)]")
-    player2 = fields.Many2one('outward.player', domain="[('id','!=',player1)]")
-    winner = fields.Many2one('outward.player',string="Winner", readonly=True)
+    player1 = fields.Many2one('res.partner', domain="[('id','!=',player2)]")
+    player2 = fields.Many2one('res.partner', domain="[('id','!=',player1)]")
+    winner = fields.Many2one('res.partner',string="Winner", readonly=True)
     finished = fields.Boolean(default=False, readonly=True)
 
 
