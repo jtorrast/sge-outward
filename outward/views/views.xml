@@ -21,6 +21,10 @@
       <field name="name">Players</field>
       <field name="res_model">res.partner</field>
       <field name="view_mode">tree,form,kanban</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('outward.player_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('outward.player_form_view')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('outward.player_kanban_view')}),]"/>
     </record>
     <record model="ir.actions.act_window" id="outward.action_building">
       <field name="name">Buildings</field>
