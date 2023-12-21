@@ -14,6 +14,7 @@ class player(models.Model):
     #_description = 'Player'
 
     #name = fields.Char()
+    is_player = fields.Boolean(default=False)
     building = fields.One2many('outward.player_building', 'player')  # model players_building
     level = fields.Integer()
     gold = fields.Integer()

@@ -21,6 +21,8 @@
       <field name="name">Players</field>
       <field name="res_model">res.partner</field>
       <field name="view_mode">tree,form,kanban</field>
+      <field name="domain"></field>
+      <field name="context">{'default_is_player': True, 'search_default_player_partner': 1}</field>
       <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'tree', 'view_id': ref('outward.player_tree_view')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('outward.player_form_view')}),
