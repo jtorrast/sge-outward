@@ -15,6 +15,16 @@
     </record>
 -->
 
+  <record model="ir.ui.view" id="outward.players_search_view">
+    <field name="name">Outward Players search</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+      <search>
+        <filter name="is_player_filter" string="Is Player" domain="[('is_player','=',True)]"/>
+      </search>
+    </field>
+  </record>
+
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="outward.action_players">
@@ -22,12 +32,14 @@
       <field name="res_model">res.partner</field>
       <field name="view_mode">tree,form,kanban</field>
       <field name="domain"></field>
-      <field name="context">{'default_is_player': True, 'search_default_player_partner': 1}</field>
+      <field name="context">{'default_is_player': True, 'search_default_is_player_filter': 1}</field>
+      <field name="search_view_id" ref="outward.players_search_view"/>
       <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'tree', 'view_id': ref('outward.player_tree_view')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('outward.player_form_view')}),
             (0, 0, {'view_mode': 'kanban', 'view_id': ref('outward.player_kanban_view')}),]"/>
     </record>
+
     <record model="ir.actions.act_window" id="outward.action_building">
       <field name="name">Buildings</field>
       <field name="res_model">outward.building</field>

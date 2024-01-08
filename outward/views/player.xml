@@ -26,13 +26,12 @@
       <field name="arch" type="xml">
         <form>
           <sheet>
-            <group>
               <group>
-                <separator string="Player Info">
-                  <field name="name"/>
-                </separator>
+                  <separator string="Player Info">
+                      <field name="name"/>
+                      <field name="is_player"/>
+                  </separator>
               </group>
-            </group>
             <group string="Resources">
                 <field name="gold"/>
                 <field name="wood"/>
