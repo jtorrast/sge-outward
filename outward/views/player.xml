@@ -20,6 +20,7 @@
           </tree>
       </field>
     </record>
+
     <record model="ir.ui.view" id="outward.player_form_view">
       <field name="name">Player Outward form</field>
       <field name="model">res.partner</field>
@@ -27,21 +28,21 @@
         <form>
           <sheet>
               <group>
-                  <separator string="Player Info">
-                      <field name="name"/>
-                      <field name="is_player"/>
-                  </separator>
+                  <group>
+                      <separator string="Player Info"/>
+                          <field name="name"/>
+                          <field name="is_player"/>
+                      <separator string="Resources"/>
+                        <field name="gold"/>
+                        <field name="wood"/>
+                        <field name="food"/>
+                        <field name="stone"/>
+                        <field name="colonist"/>
+                        <field name="attack"/>
+                        <field name="defense"/>
+                        <button name="generate_colonist" type="object" string="Hire colonist" class="oe_highlight"/>
+                  </group>
               </group>
-            <group string="Resources">
-                <field name="gold"/>
-                <field name="wood"/>
-                <field name="food"/>
-                <field name="stone"/>
-                <field name="colonist"/>
-                <field name="attack"/>
-                <field name="defense"/>
-                <button name="generate_colonist" type="object" string="Hire colonist" class="oe_highlight"/>
-            </group>
             <notebook>
                 <page string="Player Buildings">
                     <field name="building">

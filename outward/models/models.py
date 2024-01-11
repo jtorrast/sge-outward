@@ -244,6 +244,8 @@ class player_militia(models.Model):
             print(b.name,b.hire_percent)
 
 
+
+
 class battle(models.Model):
     _name = 'outward.battle'
     _description = 'Battles'
