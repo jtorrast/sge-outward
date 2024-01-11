@@ -243,8 +243,26 @@ class player_militia(models.Model):
                 b.level += 1
             print(b.name,b.hire_percent)
 
+class player_militia_wizard(models.TransientModel):
+    _name = 'outward.player_militia_wizard'
+
+    name = fields.Char()
+    type = fields.Many2one('outward.militia_type', required=True)
+    player = fields.Many2one('outward.player', required=True)
+
+    @api.depends('type','player')
+    def _get_name(self):
+        for b in self:
+            b.name = 'undefined'
+            if b.type and b.player:
+                b.name = b.type.name + " " + b.player.name + " " + str(b.id)
 
 
+    def hire_militia(self):
+        self.env['outward.player_militia'].create({
+            "type": self.type.id,
+            "city": self.city.id
+        })
 
 class battle(models.Model):
     _name = 'outward.battle'
