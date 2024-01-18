@@ -19,6 +19,50 @@
             </field>
         </record>
 
+        <!--Vista del wizard para crear batallas-->
+        <record model="ir.ui.view" id="outward.battle_wizard_view">
+            <field name="name">Outward battle wizard</field>
+            <field name="model">outward.battle_wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_previous" type="object"
+                                string="Previous" states="militia,dates"/>
+                        <button name="action_next" type="object"
+                                string="Next"
+                                states="player,militia"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group states="player">
+                            <field name="name"/>
+                        </group>
+                        <group states="militia">
+
+                        </group>
+                        <group states="dates">
+                            <field name="start"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button states="dates" name="create_battle" type="object"
+                                string="Confim Battle"/>
+                        <button special="cancel" string="Canecl"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="outward.launch_battle_wizard" model="ir.actions.act_window">
+            <field name="name">Launch battle wizard</field>
+            <field name="res_model">outward.battle_wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
     </data>
 </odoo>
 

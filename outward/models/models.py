@@ -331,3 +331,49 @@ class battle(models.Model):
                 b.calculate_battle(b.player1, b.player2)
                 b.progress = 100.00
                 b.finished = True
+
+class battle_wizard(models.TransientModel):
+    _name = 'outward.battle_wizard'
+
+    state = fields.Selection([
+        ('player', "Players"),
+        ('militia', "Milita"),
+        ('dates', "Dates"),
+    ], default='player')
+
+    name = fields.Char()
+    start = fields.Datetime()
+
+    def action_next(self):
+        if(self.state == 'player'):
+            self.state = 'militia'
+        elif(self.state == 'militia'):
+            self.state = 'dates'
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Launch battle wizard',
+            'res_model': self._name,
+            'view_mode': 'form',
+            'target': 'new',
+            'res_id': self.id,
+            'context': self._context
+        }
+
+    def action_previous(self):
+        if(self.state == 'militia'):
+            self.state = 'player'
+        elif(self.state == 'dates'):
+            self.state = 'militia'
+        return{
+            'type': 'ir.actions.act_window',
+            'name': 'Launch battle wizard',
+            'res_model': self._name,
+            'view_mode': 'form',
+            'target': 'new',
+            'res_id': self.id,
+            'context': self._context
+        }
+
+    def create_battle(self):
+        print(self)
+

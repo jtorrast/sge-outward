@@ -83,6 +83,20 @@
                             </tree>
                         </field>
                 </page>
+                <page string="Player Battles">
+                    <separator string="Battles"/>
+                    <button name="%(outward.launch_battle_wizard)d"
+                            type="action" string="Take your wapons!" class="oe_highlight"
+                            context="{'player_context': active_id}"/>
+                    <field name="battles">
+                        <tree>
+                            <field name="player1"/>
+                            <field name="player2"/>
+                            <field name="start"/>
+                            <field name="progress" widget="progressbar"/>
+                        </tree>
+                    </field>
+                </page>
             </notebook>
           </sheet>
         </form>
