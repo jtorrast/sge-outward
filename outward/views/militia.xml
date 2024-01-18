@@ -25,6 +25,10 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="outward.player_militia_wizard_view">
+            
+        </record>
+
         <record id="outward.launch_player_militia_wizard" model="ir.actions.act_window">
             <field name="name">Hire militia</field>
             <field name="res_model">outward.player_militia_wizard</field>
