@@ -66,6 +66,28 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.ui.view" id="outward.player_partners_form_view_inherit">
+      <field name="name">Outward Players form inherit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='vat']" position="after">
+          <field name="is_player"/>
+        </xpath>
+
+        <notebook position="inside">
+          <page string="Player">
+            <group>
+              <field name="name"/>
+              <field name="building"/>
+              <field name="militia"/>
+            </group>
+          </page>
+        </notebook>
+      </field>
+    </record>
+
 
 
     <!-- Top menu item -->
