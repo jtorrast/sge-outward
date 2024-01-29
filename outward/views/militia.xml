@@ -30,7 +30,7 @@
         </record>
 -->
         <record id="outward.launch_player_militia_wizard" model="ir.actions.act_window">
-            <field name="name">Hire militia</field>
+            <field name="name">Hire milita</field>
             <field name="res_model">outward.player_militia_wizard</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
