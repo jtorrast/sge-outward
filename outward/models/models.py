@@ -246,9 +246,12 @@ class player_militia(models.Model):
 class player_militia_wizard(models.TransientModel):
     _name = 'outward.player_militia_wizard'
 
+    def _get_current_player(self):
+        return self.browse(self._context.get('active_id'))
+
     name = fields.Char()
     type = fields.Many2one('outward.militia_type', required=True)
-    player = fields.Many2one('res.partner', required=True)
+    player = fields.Many2one('res.partner', required=True, default=_get_current_player, readonly=True)
 
     """"@api.depends('type','player')
     def _get_name(self):
@@ -258,11 +261,11 @@ class player_militia_wizard(models.TransientModel):
                 b.name = b.type.name + " " + b.player.name + " " + str(b.id)"""
 
 
-    """def hire_militia(self):
+    def hire_militia(self):
         self.env['outward.player_militia'].create({
             "type": self.type.id,
             "city": self.city.id
-        })"""
+        })
 
 class battle(models.Model):
     _name = 'outward.battle'
