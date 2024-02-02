@@ -21,6 +21,10 @@
       <field name="name">Menu</field>
       <field name="res_model">res.partner</field>
       <field name="view_mode">tree,form</field>
+      <field name="domain"></field>
+      <field name="search_view_id" ref="wanderer.user_tree_view"/>
+      <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('wanderer.user_tree_view')}),]"/>
     </record>
 
 

@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="wanderer.user_tree_view">
+            <field name="name">Users of Wanderer</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="nivel_karma"/>
+                    <field name="premium"/>
+                    <field name="fecha_nacimiento"/>
+                    <field name="city"/>
+                    <field name="country_id"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>
