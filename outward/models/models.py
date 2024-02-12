@@ -264,7 +264,7 @@ class player_militia_wizard(models.TransientModel):
     def hire_militia(self):
         self.env['outward.player_militia'].create({
             "type": self.type.id,
-            "city": self.city.id
+            "player": self.player.id
         })
 
 class battle(models.Model):
