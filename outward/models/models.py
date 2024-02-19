@@ -385,7 +385,16 @@ class battle_wizard(models.TransientModel):
 
     def action_next(self):
         if(self.state == 'player'):
-            self.state = 'militia'
+            if(len(self.player2)>0):
+                self.state = 'militia'
+            else:
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+
+                    }
+                }
         elif(self.state == 'militia'):
             self.state = 'dates'
         return {
