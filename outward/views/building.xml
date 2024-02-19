@@ -12,12 +12,13 @@
           <field name="wood_production"></field>
           <field name="stone_production"></field>
           <field name="gold_production"></field>
-          <field name="soldier_production"></field>
-          <field name="colonist_production"></field>
           <field name="food_cost"></field>
           <field name="stone_cost"></field>
+          <field name="wood_cost"/>
           <field name="gold_cost"></field>
           <field name="construction_time"></field>
+          <field name="soldier_production"></field>
+          <field name="colonist_production"></field>
         </tree>
       </field>
     </record>

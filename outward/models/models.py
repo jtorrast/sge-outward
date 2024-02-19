@@ -335,8 +335,13 @@ class battle(models.Model):
                 b.progress = 100.00
                 b.finished = True
 
+
 class battle_wizard(models.TransientModel):
     _name = 'outward.battle_wizard'
+
+
+    def _get_default_player(self):
+        return self._context.get('player_context')
 
     state = fields.Selection([
         ('player', "Players"),
@@ -345,7 +350,38 @@ class battle_wizard(models.TransientModel):
     ], default='player')
 
     name = fields.Char()
-    start = fields.Datetime()
+    start = fields.Datetime(default=lambda self: fields.Datetime.now())
+
+    player1 = fields.Many2one('res.partner', readonly=True, default=_get_default_player,
+                              domain="[('id','!=',player2)]")
+    player2 = fields.Many2one('res.partner', domain="[('id','!=',player1)]")
+    #selected_militia = fields.Many2many('outward.player_militia', string="Available Militia", compute='_compute_available_militia')
+    selected_militia = fields.Many2many('outward.battle_wizard_militia', string="Available Militia", compute='_get_units')
+    militia1 = fields.Many2many('outward.battle_wizard_militia', readonly=True)
+
+    @api.depends('player1')
+    def _get_units(self):
+        selected_militia = self.env['outward.battle_wizard_militia']
+
+        if len(self.player1) > 0:
+            player_available_units = self.player1.militia;
+            for a_unit in player_available_units:
+                selected = False
+                if len(self.militia1.filtered(lambda u: u.militia.id == a_unit.id)) > 0:
+                    selected = True
+                selected_militia = selected_militia + self.env['outward.battle_wizard_militia']\
+                    .create({"militia": a_unit.id, "selected": selected})
+        self.selected_militia = selected_militia
+
+    @api.depends('player1')
+    def _compute_available_militia(self):
+        for wizard in self:
+            if wizard.player1:
+                wizard.selected_militia = wizard.player1.militia
+            else:
+                wizard.selected_militia = False
+
+
 
     def action_next(self):
         if(self.state == 'player'):
@@ -380,3 +416,11 @@ class battle_wizard(models.TransientModel):
     def create_battle(self):
         print(self)
 
+class battle_wizard_militia(models.TransientModel):
+    _name = 'outward.battle_wizard_militia'
+
+    militia = fields.Many2one('outward.player_militia')
+    name = fields.Char(related='militia.name')
+    type = fields.Many2one(related='militia.type')
+    player = fields.Many2one('res.partner', related='militia.player')
+    selected = fields.Boolean()

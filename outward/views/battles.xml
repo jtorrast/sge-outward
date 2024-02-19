@@ -37,9 +37,17 @@
                     <sheet>
                         <group states="player">
                             <field name="name"/>
+                            <field name="player1"/>
+                            <field name="player2"/>
                         </group>
                         <group states="militia">
-
+                            <field name="selected_militia">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="type"/>
+                                    <field name="selected" widget="boolean_toogle"/>
+                                </tree>
+                            </field>
                         </group>
                         <group states="dates">
                             <field name="start"/>
@@ -48,7 +56,7 @@
                     <footer>
                         <button states="dates" name="create_battle" type="object"
                                 string="Confim Battle"/>
-                        <button special="cancel" string="Canecl"/>
+                        <button special="cancel" string="Cancel"/>
                     </footer>
                 </form>
             </field>
