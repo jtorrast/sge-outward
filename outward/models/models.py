@@ -414,7 +414,15 @@ class battle_wizard(models.TransientModel):
         }
 
     def create_battle(self):
-        print(self)
+        min_date = fields.Datetime.from_string(fields.Datetime.now()) - timedelta(minutes=5)
+        if (self.start < min_date):
+            self.start = fields.Datetime.now()
+        self.env['outward.battle'].create({
+            "name": self.name,
+            "start": self.start,
+            "player1": self.player1.id,
+            "player2": self.player2.id
+        })
 
 class battle_wizard_militia(models.TransientModel):
     _name = 'outward.battle_wizard_militia'
