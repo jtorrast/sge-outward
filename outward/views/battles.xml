@@ -45,6 +45,11 @@
                                 <tree>
                                     <field name="name"/>
                                     <field name="type"/>
+                                    <button name="go_to_battle"
+                                            type="object"
+                                            string="Go to battle"
+                                            class="oe_highlight"
+                                            context="{'battle_wizard_context': parent.id}"/>
                                     <field name="selected" widget="boolean_toogle"/>
                                 </tree>
                             </field>

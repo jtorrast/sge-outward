@@ -424,3 +424,19 @@ class battle_wizard_militia(models.TransientModel):
     type = fields.Many2one(related='militia.type')
     player = fields.Many2one('res.partner', related='militia.player')
     selected = fields.Boolean()
+
+    def go_to_battle(self):
+        wizard = self._context.get('battle_wizard_context')
+
+        wizard = self.env['outward.battle_wizard'].browse(wizard)
+        wizard.write({"militia1": [(4, self.id)]})
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Launch battle wizard',
+            'res_model': wizard._name,
+            'view_mode': 'form',
+            'target': 'new',
+            'res_id': wizard.id,
+            'context': wizard._context
+        }

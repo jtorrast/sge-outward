@@ -7,4 +7,5 @@ access_outward_player_militia,outward.player_militia,model_outward_player_militi
 access_outward_battle,outward.battle,model_outward_battle,base.group_user,1,1,1,1
 access_outward_player_militia_wizard,outward.player_militia_wizard,model_outward_player_militia_wizard,base.group_user,1,1,1,1
 access_outward_battle_wizard,outward.battle_wizard,model_outward_battle_wizard,base.group_user,1,1,1,1
+access_outward_battle_wizard_militia,outward.battle_wizard_militia,model_outward_battle_wizard_militia,base.group_user,1,1,1,1
 
