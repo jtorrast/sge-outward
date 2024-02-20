@@ -385,17 +385,20 @@ class battle_wizard(models.TransientModel):
 
     def action_next(self):
         if(self.state == 'player'):
-            if(len(self.player2)>0):
+            if (len(self.player2) > 0):
                 self.state = 'militia'
+                print("Valor de self.name:", self.name)
             else:
                 return {
                     'type': 'ir.actions.client',
                     'tag': 'display_notification',
                     'params': {
-
+                        'message': 'Player 2 not selected',
+                        'type': 'info',  # types: success,warning,danger,info
+                        'sticky': False,
                     }
                 }
-        elif(self.state == 'militia'):
+        elif(self.state == 'militia'): #hacer un search.filtered para recorrer el transient i ver si hay alguno seleccionado si el search es > 0 es que hay alguno soladado seleccionado
             self.state = 'dates'
         return {
             'type': 'ir.actions.act_window',
