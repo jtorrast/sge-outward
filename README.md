@@ -10,6 +10,6 @@
 
 ## Segunda evaluación.
 
-### Herecia y herencia en la vista de res.partner.
-### Wizard en el menú de acciones (Hire militia).
-### Wizard completo para gestionar batallas desde el jugador.
+#### Herecia y herencia en la vista de res.partner.
+#### Wizard en el menú de acciones (Hire militia).
+#### Wizard completo para gestionar batallas desde el jugador.
