@@ -354,7 +354,7 @@ class battle_wizard(models.TransientModel):
 
     player1 = fields.Many2one('res.partner', readonly=True, default=_get_default_player,
                               domain="[('id','!=',player2)]")
-    player2 = fields.Many2one('res.partner', domain="[('id','!=',player1)]")
+    player2 = fields.Many2one('res.partner', domain="[('id','!=',player1), ('is_player', '=', True)]")
     #selected_militia = fields.Many2many('outward.player_militia', string="Available Militia", compute='_compute_available_militia')
     selected_militia = fields.Many2many('outward.battle_wizard_militia', string="Available Militia", compute='_get_units')
     militia1 = fields.Many2many('outward.battle_wizard_militia', readonly=True)
@@ -399,7 +399,20 @@ class battle_wizard(models.TransientModel):
                     }
                 }
         elif(self.state == 'militia'): #hacer un search.filtered para recorrer el transient i ver si hay alguno seleccionado si el search es > 0 es que hay alguno soladado seleccionado
-            self.state = 'dates'
+            selected = self.env['outward.battle_wizard_militia'].search([]).filtered(lambda b: b.selected == True)
+            print(selected)
+            if (len(selected) > 0):
+                self.state = 'dates'
+            else:
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'message': 'You must choose some mercenary',
+                        'type': 'info',  # types: success,warning,danger,info
+                        'sticky': False,
+                    }
+                }
         return {
             'type': 'ir.actions.act_window',
             'name': 'Launch battle wizard',
