@@ -7,3 +7,9 @@
 #### En el apartado de Buildings se ha añadido una vista Kanban con imagenes de los edificios desde datos de demo, al princio me dió algún problema per ya parece que cargen bien. 
 #### Para probar las batallas hay un botón que la resulve en el momento y no hace falta esperar, el vencedor tiene un incremento de su horo del 20% y el perdedor un decremento del 10%
 
+
+## Segunda evaluación.
+
+###Herecia y herencia en la vista de res.partner
+###Wizard en el menú de acciones (Hire militia)
+###Wizard completo para gestionar batallas desde el jugador.
